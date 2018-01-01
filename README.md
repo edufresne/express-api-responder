@@ -91,7 +91,6 @@ Output: `200`
     {
       "name": "Dufresne"
     }
-    //...
   ],
   "limit": 25,
   "page": 1,
