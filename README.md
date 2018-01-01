@@ -1,6 +1,6 @@
-# express-responder
+# express-api-responder
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
-[![Build Status](https://travis-ci.org/edufresne/express-responder.svg?branch=master)](https://travis-ci.org/edufresne/express-responder)
+[![Build Status](https://travis-ci.org/edufresne/express-responder.svg?branch=master)](https://travis-ci.org/edufresne/express-api-responder)
 
 A small Express.js Middleware for conveniently formatting JSON responses. This package builds into the Express.js 
 response object and allows you to return data in the following:
