@@ -74,7 +74,7 @@ or
 
 Returns a JSON object with a list of data as well as some useful fields. Defaults 200 HTTP status code
 ```javascript
-var data = [{...}, {...}, ...];
+var data = [{name: 'Eric'}, {name: 'Dufresne'}, ...];
 var totalCount = 50;
 var page = 1;
 var limit = 25;
@@ -86,9 +86,12 @@ Output: `200`
 {
   "list": [
     {
-      ...
+      "name": "Eric"
     },
-    ...
+    {
+      "name": "Dufresne"
+    }
+    //...
   ],
   "limit": 25,
   "page": 1,
