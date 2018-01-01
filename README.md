@@ -106,13 +106,13 @@ Defaults to HTTP status code 500 but a code can be passed.
 ```javascript
 res.catch(err);
 ```
-Output if `process.env.NODE_ENV === 'production'`
+In production environment `500`
 ```json
 {
   "message": "Internal Server Error"
 }
 ```
-if not in a production environment
+if not in a production environment `500`
 ```json
 {
   "message": "Table \"messages\" doesn't exist..."
