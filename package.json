@@ -1,6 +1,6 @@
 {
   "name": "express-api-responder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An Express.js Middleware for conveniently formatting JSON responses",
   "main": "index.js",
   "scripts": {
