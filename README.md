@@ -22,7 +22,7 @@ var repsonder = require('express-responder');
 app.use(responder());
 //or
 var router = express.Router();
-router.use(responder());
+router.use(responder({}));
 
 //How to use
 router.get('/messages', function(req, res) {
@@ -125,4 +125,31 @@ if not in a production environment `500`
 ### No Content
 ```javascript
 res.noContent();
+```
+
+### Extra Options
+You can include the status code as well as a success flag in all the JSON responses
+by passing extra options to the middleware.
+```javascript
+app.use(responder({
+  includeCode: 'status',
+  includeSuccess: 'success'
+}));
+
+res.error(null, 409);
+```
+Response `409`
+```json
+{
+  "success": false,
+  "status": 409,
+  "message": "Conflict"
+}
+```
+
+### Run Tests
+Tests use a mock server with the middleware in place. Can run using mocha as well as with istanbul
+```
+npm run test
+npm run cover
 ```
