@@ -2,6 +2,7 @@
 [![version](https://img.shields.io/npm/v/express-api-responder.svg)](https://www.npmjs.org/package/express-api-responder)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 [![Build Status](https://travis-ci.org/edufresne/express-responder.svg?branch=master)](https://travis-ci.org/edufresne/express-api-responder)
+[![Coverage Status](https://coveralls.io/repos/github/edufresne/express-api-responder/badge.svg?branch=master)](https://coveralls.io/github/edufresne/express-api-responder?branch=master)
 
 A small Express.js Middleware for conveniently formatting JSON responses. This package builds into the Express.js 
 response object and allows you to return data in the following:

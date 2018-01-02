@@ -13,6 +13,9 @@ chai.use(chaiHttp);
 
 describe('Middleware Tests', function () {
 
+  after(function (argument) {
+    process.exit(0);
+  });
   describe('No Content', function () {
     it('Test No Content', function (done) {
       chai.request(app).get('/test-no-content').end(function (err, res) {
