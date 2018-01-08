@@ -4,7 +4,11 @@
 var express = require('express');
 var router = express.Router();
 var responder = require('../../../index');
-router.use(responder());
+router.use(responder({
+  signing: {
+    jwtSecret: 'super-secret'
+  }
+}));
 
 router.get('/test-no-content', function (req, res) {
   res.noContent();
@@ -25,6 +29,9 @@ router.get('/test-catch', function (req, res) {
 });
 router.get('/test-page', function (req, res) {
   res.paginate([1, 2, 3], req.query.total, req.query.page, req.query.limit, req.query.code);
+});
+router.get('/test-sign', function (req, res) {
+  res.sign({id: 1, field: 'Test'}, req.query.code);
 });
 
 module.exports = router;

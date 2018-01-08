@@ -220,6 +220,47 @@ describe('Middleware Tests', function () {
       codes.description(508).should.eq('Loop Detected');
       codes.description(510).should.eq('Not Extended');
       codes.description(511).should.eq('Network Authentication Required');
-    })
-  })
+    });
+  });
+
+  describe('Signing Repsonses', function () {
+    it('Test signing without code', function (done) {
+      chai.request(app).get('/test-sign').end(function (err, res) {
+        res.should.have.status(200);
+        res.body.should.have.property('token');
+        res.body.should.have.property('data');
+        var data = res.body.data;
+        data.should.have.property('id').eq(1);
+        data.should.have.property('field').eq('Test');
+        done();
+      });
+    });
+
+    it('Test signing with code', function (done) {
+      chai.request(app).get('/test-sign').query({code: 201}).end(function (err, res) {
+        res.should.have.status(201);
+        res.body.should.have.property('token');
+        res.body.should.have.property('data');
+        var data = res.body.data;
+        data.should.have.property('id').eq(1);
+        data.should.have.property('field').eq('Test');
+        done();
+      });
+    });
+
+    it('Test signing with opts', function (done) {
+      chai.request(app).get('/opts/test-sign').end(function (err, res) {
+        res.should.have.status(200);
+        res.body.should.have.property('status').eq(200);
+        res.body.should.have.property('success').eq(true);
+        res.body.should.have.property('secretToken');
+        res.body.should.have.property('user');
+        var data = res.body.user;
+        data.should.have.property('id').eq(1);
+        data.should.have.property('field').eq('Test');
+        done();
+      });
+    });
+
+  });
 });
