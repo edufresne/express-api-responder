@@ -10,6 +10,7 @@ response object and allows you to return data in the following:
 - Paginated data for a list
 - An error for a bad request or other errors
 - No content after a deletion
+- Signing a request with a JWT auth token
 - Catch a server error and return an error message without important knowledge of the system
 
 ### Setup
@@ -119,6 +120,28 @@ if not in a production environment `500`
 ```json
 {
   "message": "Table \"messages\" doesn't exist..."
+}
+```
+
+### Signing Responses
+Must provide a JWT secret or private key to the responder options.
+```javascript
+app.use(responder({
+  signing: {
+    jwtSecret: 'some-super-secret'
+  }
+}));
+
+res.sign({hello: 'world', id: 32});
+```
+Response `200`
+```json
+{
+  "data": {
+    "id": 32,
+    "hello": "world"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJoZWxsbyI6IndvcmxkIiwiaWQiOjMyLCJpYXQiOjE1MTUzNzI0NzN9.uU_9EoOSodk6tR4LdzxYaAVefkVjXtdxfCfSM_OynKo"
 }
 ```
 
