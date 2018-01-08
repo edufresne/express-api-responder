@@ -8,15 +8,19 @@ var chaiHttp = require('chai-http');
 var server = require('./server/bin/www');
 var app = require('./server/app');
 var should = chai.should();
+var expect = chai.expect;
 var codes = require('../lib/codes');
+var responder = require('../index');
+var functions = require('../lib/functions');
 
 chai.use(chaiHttp);
 
 describe('Middleware Tests', function () {
 
-  after(function (argument) {
+  after(function () {
     process.exit(0);
   });
+
   describe('No Content', function () {
     it('Test No Content', function (done) {
       chai.request(app).get('/test-no-content').end(function (err, res) {
@@ -263,4 +267,75 @@ describe('Middleware Tests', function () {
     });
 
   });
+
+  describe('Test Error Scenarios', function () {
+    it('Test Error of signing without jwtSecret', function () {
+      expect(function () {
+        responder({
+          signing: {}
+        })
+      }).to.throw(/jwtSecret/);
+    });
+
+    it('Test Error of bad code to success', function(){
+      expect(function(){
+        functions.success({})({test: 'something'}, 400);
+      }).to.throw(/HTTP/);
+    });
+
+    it('Test Error of bad code to error', function(){
+      expect(function(){
+        functions.error({})("Here", 200);
+      }).to.throw(/HTTP/);
+    });
+
+    it('Test Sign of bad code to error', function(){
+      expect(function(){
+        functions.sign({signing: {jwtSecret: 'secret', tokenKey: 'token', bodyToken: 'body'}})({test: 'something'}, 400);
+      }).to.throw(/HTTP/);
+    });
+
+    it('Test Paginate of bad list to item', function(){
+      expect(function(){
+        functions.paginate({})();
+      }).to.throw(/list must be of type array/);
+
+    });
+
+    it('Test Paginate bad limit', function(){
+      expect(function () {
+        functions.paginate({})([], 0, 0, 0);
+      }).to.throw(/limit/);
+    });
+
+    it('Test Paginate bad page', function(){
+      expect(function () {
+        functions.paginate({})([], 1, -1, 1);
+      }).to.throw(/page/);
+    });
+
+    it('Test Paginate bad total', function(){
+      expect(function () {
+        functions.paginate({})([], -1, 1, 1);
+      }).to.throw(/total/);
+    });
+
+    it('Test Paginate bad code', function(){
+      expect(function () {
+        functions.paginate({})([], 1, 1, 1, 400);
+      }).to.throw(/HTTP/);
+    });
+
+    it('Test Catch of bad code to success', function(){
+      expect(function(){
+        functions.catch({})({message: 'Test'}, 200);
+      }).to.throw(/HTTP/);
+    });
+
+    it('Test codes', function(){
+      expect(function () {
+        functions.success({})({message: 'Test'}, 99);
+      }).to.throw(/HTTP/)
+    })
+  })
 });
