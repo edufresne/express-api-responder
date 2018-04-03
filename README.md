@@ -15,11 +15,11 @@ response object and allows you to return data in the following:
 
 ### Setup
 ```
-npm install express-responder --save
+npm install express-api-responder --save
 ```
 Can be used by your whole app or a router
 ```javascript
-var repsonder = require('express-responder');
+var repsonder = require('express-api-responder');
 app.use(responder());
 //or
 var router = express.Router();
